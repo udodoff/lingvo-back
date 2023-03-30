@@ -1,0 +1,28 @@
+{
+  "name": "lingvo-back",
+  "version": "1.0.0",
+  "description": "backend for school",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udodoff/lingvo-back.git"
+  },
+  "keywords": [
+    "express",
+    "backend",
+    "fullstack"
+  ],
+  "author": "lingva-diving",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/udodoff/lingvo-back/issues"
+  },
+  "homepage": "https://github.com/udodoff/lingvo-back#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}

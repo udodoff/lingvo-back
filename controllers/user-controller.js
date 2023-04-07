@@ -1,29 +1,21 @@
-const Sequelize = require('sequelize')
-const db = require('../database')
-const User = db.user
+//import all dependencies
+const userService = require('../service/user-service');
 const colors = require('colors')
 
+
 class UserController{
+    //when recieving request, calling user functions
     async createUser(request, response, next){
         try {
-            await User.create({
-                email: request.body.email,
-                password: request.body.password,
-                isActivated: false
-            })
-            .then(result => {
-                console.log(colors.green(result))
-                response.end('ok')
-            })
-            .catch(error => {
-                console.log(colors.red(error.parent.code))
-                if(error.parent.code === 'ER_DUP_ENTRY'){
-                    response.writeHead(403)
-                    response.end('User with this email already exists')
-                }
-            })
+            const {email, password} = request.body;
+            const userData = await userService.createUser(email, password)
+            response.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            console.log(colors.green(userData))
+            return response.json(userData)
         } catch (error) {
-            console.log(error);
+            console.log(colors.red(error.parent.code));
+            response.writeHead(403)
+            response.end('User with this email already exists')
         }
     };
 
@@ -38,6 +30,35 @@ class UserController{
     async logout(request, response, next){
         try {
             
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    async activate(request, response, next){
+        try {
+            
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    async refresh(request, response, next){
+        try {
+            
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    async getUsers(request, response, next){
+        try {
+            // const user = await User.create({
+            //     email: 1,
+            //     password: 2,
+            //     activationLink: 3
+            // })
+            response.end('hello')
         } catch (error) {
             console.log(error);
         }

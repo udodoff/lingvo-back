@@ -1,7 +1,6 @@
 //import all dependencies
 require('dotenv').config()
 const express = require('express')
-const Sequelize = require('sequelize')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const router = require('./router/router')

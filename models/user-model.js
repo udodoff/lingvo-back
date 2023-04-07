@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 
+//Scheme of user table
 module.exports = (sequelize) => {
     return sequelize.define('user', {
         id: {
@@ -19,12 +20,12 @@ module.exports = (sequelize) => {
         },
         isActivated: {
             type: Sequelize.BOOLEAN,
-            allowNull: false
+            allowNull: false,
+            defaultValue: false
         },
         activationLink: {
             type: Sequelize.STRING,
-            allowNull: true,
-            defaultValue: null
+            allowNull: false,
         }
     }, {
         timestamps: false

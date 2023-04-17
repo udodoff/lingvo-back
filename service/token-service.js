@@ -20,7 +20,7 @@ class TokenService{
         });
         if(tokenData){
             tokenData.set({refreshToken: refreshToken})
-            return db.token.save()
+            return tokenData.save()
         }
 
         //if no token (new user), create it
@@ -36,6 +36,12 @@ class TokenService{
             console.log(colors.red(error))
         })
         return token;
+    }
+    async removeToken(refreshToken){
+        const tokenData = await Token.destroy({
+            where: { refreshToken: refreshToken },
+        });
+        return tokenData
     }
 }
 

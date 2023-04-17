@@ -1,5 +1,5 @@
 //import all dependencies
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const uuid = require('uuid')
 const mailService = require('./mail-service')
 const db = require('../database')

@@ -17,12 +17,6 @@ app.use(cors())
 app.use(cookieParser())
 app.use('/api', router)
 
-//endpoint for the "/"
-app.post('/', (req, res) => {
-    console.log(req.body);
-    res.writeHead(200);         //sending status 200
-    res.end('Hello World!');   //sending responce "hello world"
-});
 
 const start = async () => {
     try {

@@ -8,10 +8,28 @@ const Token = db.token
 //token functions
 class TokenService{
     generateTokens(payload){
-        const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '30m'})
+        const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '15m'})
         const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {expiresIn: '30d'})
         return {accessToken, refreshToken}
     };
+
+    validateAccessToken(token){
+        try {
+            const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET)
+            return userData
+        } catch (error) {
+            return null
+        }
+    }
+
+    validateRefreshToken(token){
+        try {
+            const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
+            return userData
+        } catch (error) {
+            return null
+        }
+    }
 
     async saveToken(userId, refreshToken){
         //If token exists, update it
@@ -20,7 +38,7 @@ class TokenService{
         });
         if(tokenData){
             tokenData.set({refreshToken: refreshToken})
-            return db.token.save()
+            return tokenData.save()
         }
 
         //if no token (new user), create it
@@ -36,6 +54,18 @@ class TokenService{
             console.log(colors.red(error))
         })
         return token;
+    }
+    async removeToken(refreshToken){
+        const tokenData = await Token.destroy({
+            where: { refreshToken: refreshToken },
+        });
+        return tokenData
+    }
+    async findToken(refreshToken){
+        const tokenData = await Token.findOne({
+            where: { refreshToken: refreshToken },
+        });
+        return tokenData
     }
 }
 
